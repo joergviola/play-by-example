@@ -1,0 +1,10 @@
+@(message: String, entries:Seq[BlogEntry])
+
+@main("Welcome to Play 2.0") {
+    
+    @message
+    @for(b <- entries) {
+    	@b.subject : @b.text <br>
+    }
+    
+}
