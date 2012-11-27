@@ -11,17 +11,10 @@ import slick.driver.ExtendedProfile
 
 // <DriverDefinition>
 trait Persistent {
-  def driverClass = Configuration.root().getString("db.default.driver") match {
-    case "org.h2.Driver" => "scala.slick.driver.H2Driver"
+  val driver = Configuration.root().getString("db.default.driver") match {
+    case "org.h2.Driver" => scala.slick.driver.H2Driver
   }
   // </DriverDefinition>
-
-  // <DriverClass>
-  val driver = singleton[ExtendedProfile](driverClass)
-
-  private def singleton[T](name: String)(implicit man: Manifest[T]): T =
-    Class.forName(name + "$").getField("MODULE$").get(man.runtimeClass).asInstanceOf[T]
-  // </DriverClass>
 
   // <DAOs>
   def blogEntries = new BlogEntryDAO(driver).BlogEntries
