@@ -1,10 +1,9 @@
-@(message: String, entries:Seq[BlogEntry])
+@(message: String, result:Seq[(Author,BlogEntry)])
 
 @main("Welcome to Play 2.0") {
     
-    @message
-    @for(b <- entries) {
-    	@b.subject : @b.text <br>
-    }
-    
+    @message <br>
+    @for((a,b) <- result) {
+    	@a.name (@a.id): @b.subject, @b.text <br>
+	}    
 }
