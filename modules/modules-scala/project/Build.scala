@@ -7,16 +7,19 @@ object ApplicationBuild extends Build {
   val appName         = "modules-scala"
   val appVersion      = "1.0-SNAPSHOT"
 
+  // Webjars dependency
   val appDependencies = Seq(
 	  "org.webjars" % "webjars-play" % "2.1-RC1",
 	  "org.webjars" % "bootstrap" % "2.2.1"
   )
+  // /Webjars dependency
 
+  // projects
+  val pages = play.Project(appName+"-pages", appVersion, 
+      appDependencies, path = file("modules/pages")).settings()
 
-  val pages = play.Project(appName+"-pages", appVersion, appDependencies, path = file("modules/pages")).settings(
-  )
-
-  val main = play.Project(appName, appVersion, appDependencies).settings(
-  ).dependsOn(pages)
+  val main = play.Project(appName, appVersion, 
+      appDependencies).settings().dependsOn(pages)
+  // /projects
 
 }
